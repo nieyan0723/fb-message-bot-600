@@ -6,6 +6,10 @@ var Wit = require('node-wit').Wit
 var request = require('request')
 
 
+const accessToken = (() => {
+  return Config.WIT_TOKEN;
+})();
+
 var firstEntityValue = function (entities, entity) {
 	var val = entities && entities[entity] &&
 		Array.isArray(entities[entity]) &&
@@ -56,7 +60,7 @@ const printWikidataDescription = (celebrity) => {
 // SETUP THE WIT.AI SERVICE
 var getWit = function () {
 	console.log('GRABBING WIT')
-	return new Wit({Config.WIT_TOKEN})
+	return new Wit({accessToken})
 }
 
 module.exports = {
