@@ -21,7 +21,7 @@ var firstEntityValue = function (entities, entity) {
 		entities[entity].length > 0 &&
 		entities[entity][0].value
     console.log(">>>>>>>val>>>>>>>");
-     console.log(val);
+     console.log(val.value);
 	if (!val) {
 		return null
 	}
