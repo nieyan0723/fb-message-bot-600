@@ -45,9 +45,8 @@ const printWikidataDescription = (celebrity) => {
     .then(response => Promise.resolve(response.json()))
     .then(data => {
       console.log(`ooo yes I know ${celebrity.name} -- ${data.entities[wikidataID].descriptions.en.value}`);
-     // var respdata = "ooo yes I know " + celebrity.name + " -- " + data.entities[wikidataID].descriptions.en.value;
-      //return respdata;
-      return "ooo yes I know " + celebrity.name + " -- " + data.entities[wikidataID].descriptions.en.value;
+      const respdata = "ooo yes I know " + celebrity.name + " -- " + data.entities[wikidataID].descriptions.en.value;
+      return respdata;
     })
     .catch(err => console.error(err))
 };
@@ -95,10 +94,10 @@ var read = function (sender, message, reply) {
               console.log(celebrity);
              if (celebrity) {
              // We can call wikidata API for more info here
-             var resp = printWikidataDescription(celebrity);
+             printWikidataDescription(celebrity);
              console.log(">>>>>>>resp>>>>>>>");
-             console.log(resp);
-             reply(sender, resp);
+             console.log(respdata);
+             reply(sender, respdata);
              } else if (greetings) {
              console.log("Hi! You can say something like 'Tell me about Beyonce'");
              reply(sender, "Hi! You can say something like 'Tell me about Beyonce'");
