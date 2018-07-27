@@ -27,21 +27,6 @@ var firstEntityValue = function (entities, entity) {
 	return typeof val === 'object' ? val.value : val
 }
 
-const handleMessage = ({entities}) => {
-  const greetings = firstEntityValue(entities, 'greetings');
-  const celebrity = firstEntityValue(entities, 'notable_person');
-  if (celebrity) {
-    // We can call wikidata API for more info here
-   return printWikidataDescription(celebrity);
-  } else if (greetings) {
-    console.log("Hi! You can say something like 'Tell me about Beyonce'");
-    return "Hi! You can say something like 'Tell me about Beyonce'";
-  } else {
-    console.log("Umm. I don't recognize that name. Which celebrity do you want to learn about?");
-    return "Umm. I don't recognize that name. Which celebrity do you want to learn about?";
-  }
-};
-
 const printWikidataDescription = (celebrity) => {
   const wikidataID = celebrity.external && celebrity.external.wikidata;
   if (!wikidataID) {
@@ -95,12 +80,22 @@ var read = function (sender, message, reply) {
 
     client.message(message).then(({entities}) => {
               // You can customize your response to these entities
-              console.log(entities);
+              // console.log(entities);
               // For now, let's reply with another automatic message
-              reply(sender, `We've received your message: ${message}.`);
+              //reply(sender, `We've received your message: ${message}.`);
+              const greetings = firstEntityValue(entities, 'greetings');
+              const celebrity = firstEntityValue(entities, 'notable_person');
+             if (celebrity) {
+             // We can call wikidata API for more info here
+             reply(sender, printWikidataDescription(celebrity));
+             } else if (greetings) {
+             console.log("Hi! You can say something like 'Tell me about Beyonce'");
+             reply(sender, "Hi! You can say something like 'Tell me about Beyonce'");
+             } else {
+             console.log("Umm. I don't recognize that name. Which celebrity do you want to learn about?");
+             reply(sender, "Umm. I don't recognize that name. Which celebrity do you want to learn about?");
+               }
             })
-//		var replyMessage = handleMessage(message)
-//		reply(sender, replyMessage)
 	
 }
 
