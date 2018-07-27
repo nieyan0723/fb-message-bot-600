@@ -20,7 +20,8 @@ var firstEntityValue = function (entities, entity) {
 		Array.isArray(entities[entity]) &&
 		entities[entity].length > 0 &&
 		entities[entity][0].value
-    console.log(">>>>>>>val>>>>>>>" + val);
+    console.log(">>>>>>>val>>>>>>>");
+     console.log(val);
 	if (!val) {
 		return null
 	}
