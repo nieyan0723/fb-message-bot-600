@@ -97,7 +97,8 @@ var read = function (sender, message, reply) {
               console.log(celebrity);
              if (celebrity) {
              // We can call wikidata API for more info here
-             var respdata = printWikidataDescription(celebrity);
+             let respdata = printWikidataDescription(celebrity);
+             respdata.then(()=>{return responsewiki;});
              console.log(">>>>>>>resp>>>>>>>");
              console.log(respdata);
              reply(sender, respdata);
