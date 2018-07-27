@@ -98,7 +98,7 @@ var read = function (sender, message, reply) {
               console.log(celebrity);
              if (celebrity) {
              // We can call wikidata API for more info here
-            printWikidataDescription(celebrity).then((responsewiki)=>{reply(sender, respdata);};
+            printWikidataDescription(celebrity).then((responsewiki)=>{reply(sender, respdata);});
              } else if (greetings) {
              console.log("Hi! You can say something like 'Tell me about Beyonce'");
              reply(sender, "Hi! You can say something like 'Tell me about Beyonce'");
