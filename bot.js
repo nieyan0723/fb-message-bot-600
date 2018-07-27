@@ -20,7 +20,7 @@ var firstEntityValue = function (entities, entity) {
 		Array.isArray(entities[entity]) &&
 		entities[entity].length > 0 &&
 		entities[entity][0].value
-
+    console.log(">>>>>>>val>>>>>>>" + val);
 	if (!val) {
 		return null
 	}
@@ -80,11 +80,13 @@ var read = function (sender, message, reply) {
 
     client.message(message).then(({entities}) => {
               // You can customize your response to these entities
-              // console.log(entities);
+              console.log(">>>>>>>>>>>>>>entities>>>>>>>>>>>>>"+entities);
               // For now, let's reply with another automatic message
               //reply(sender, `We've received your message: ${message}.`);
               const greetings = firstEntityValue(entities, 'greetings');
+              console.log(">>>>>>>>>>>>>>greetings>>>>>>>>>>>>>"+greetings);
               const celebrity = firstEntityValue(entities, 'notable_person');
+              console.log(">>>>>>>>>>>>>>celebrity>>>>>>>>>>>>>"+celebrity);
              if (celebrity) {
              // We can call wikidata API for more info here
              reply(sender, printWikidataDescription(celebrity));
