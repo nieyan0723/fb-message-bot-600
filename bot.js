@@ -92,9 +92,15 @@ var findOrCreateSession = function (fbid) {
 
 var read = function (sender, message, reply) {
 		const client = new Wit({accessToken})
-    interactive(client, handleMessage)
-		var replyMessage = handleMessage(message)
-		reply(sender, replyMessage)
+
+    client.message(message).then(({entities}) => {
+              // You can customize your response to these entities
+              console.log(entities);
+              // For now, let's reply with another automatic message
+              fbMessage(sender, `We've received your message: ${text}.`);
+            })
+//		var replyMessage = handleMessage(message)
+//		reply(sender, replyMessage)
 	
 }
 
