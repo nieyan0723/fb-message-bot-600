@@ -45,8 +45,9 @@ const printWikidataDescription = (celebrity) => {
     .then(response => Promise.resolve(response.json()))
     .then(data => {
       console.log(`ooo yes I know ${celebrity.name} -- ${data.entities[wikidataID].descriptions.en.value}`);
-      var respdata = "ooo yes I know " + celebrity.name + " -- " + data.entities[wikidataID].descriptions.en.value;
-      return respdata;
+     // var respdata = "ooo yes I know " + celebrity.name + " -- " + data.entities[wikidataID].descriptions.en.value;
+      //return respdata;
+      const answer = data;
     })
     .catch(err => console.error(err))
 };
