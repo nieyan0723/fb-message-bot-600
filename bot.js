@@ -25,7 +25,8 @@ var firstEntityValue = function (entities, entity) {
 	if (!val) {
 		return null
 	}
-	return typeof val === 'object' ? val.value : val
+//return typeof val === 'object' ? val.value : val
+return val.value
 }
 
 const printWikidataDescription = (celebrity) => {
