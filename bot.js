@@ -36,7 +36,7 @@ const printWikidataDescription = (celebrity) => {
     return "I recognize ${celebrity.name}!";
   }
   const fullUrl = `https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&ids=${wikidataID}&props=descriptions&languages=en`;
-  return fetch(fullUrl, {
+  return var respdata = fetch(fullUrl, {
     method: 'GET',
     headers: new Headers({
       'Api-User-Agent': 'wit-ai-example'
@@ -47,8 +47,7 @@ const printWikidataDescription = (celebrity) => {
       console.log(`ooo yes I know ${celebrity.name} -- ${data.entities[wikidataID].descriptions.en.value}`);
      // var respdata = "ooo yes I know " + celebrity.name + " -- " + data.entities[wikidataID].descriptions.en.value;
       //return respdata;
-      const answer = data;
-      return answer;
+      return "ooo yes I know " + celebrity.name + " -- " + data.entities[wikidataID].descriptions.en.value;
     })
     .catch(err => console.error(err))
 };
