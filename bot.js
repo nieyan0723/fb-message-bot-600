@@ -19,13 +19,13 @@ var firstEntityValue = function (entities, entity) {
 	var val = entities && entities[entity] &&
 		Array.isArray(entities[entity]) &&
 		entities[entity].length > 0 &&
-		entities[entity][0].value
+		entities[entity][0].value;
     console.log(">>>>>>>val>>>>>>>");
      console.log(val);
 	if (!val) {
-		return null
+		return null;
 	}
-return typeof val === 'object' ? val.value : val
+return val;
 }
 
 const printWikidataDescription = (celebrity) => {
@@ -81,6 +81,7 @@ var read = function (sender, message, reply) {
 
     client.message(message).then(({entities}) => {
               // You can customize your response to these entities
+              console.log(">>>>>>>entities>>>>>>>");
               console.log(entities);
               // For now, let's reply with another automatic message
               //reply(sender, `We've received your message: ${message}.`);
@@ -91,7 +92,7 @@ var read = function (sender, message, reply) {
              if (celebrity) {
              // We can call wikidata API for more info here
              var resp = printWikidataDescription(celebrity);
-            console.log(">>>>>>>resp>>>>>>>");
+             console.log(">>>>>>>resp>>>>>>>");
              console.log(resp);
              reply(sender, resp);
              } else if (greetings) {
