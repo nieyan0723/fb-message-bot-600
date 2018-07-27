@@ -92,6 +92,7 @@ var findOrCreateSession = function (fbid) {
 
 var read = function (sender, message, reply) {
 		const client = new Wit({accessToken})
+    interactive(client, handleMessage)
 		var replyMessage = handleMessage(message)
 		reply(sender, replyMessage)
 	
