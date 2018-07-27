@@ -80,7 +80,7 @@ var read = function (sender, message, reply) {
 
     client.message(message).then(({entities}) => {
               // You can customize your response to these entities
-              console.log(">>>>>>>>>>>>>>entities>>>>>>>>>>>>>"+entities);
+              console.log(entities);
               // For now, let's reply with another automatic message
               //reply(sender, `We've received your message: ${message}.`);
               const greetings = firstEntityValue(entities, 'greetings');
