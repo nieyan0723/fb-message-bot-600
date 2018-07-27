@@ -84,9 +84,9 @@ var read = function (sender, message, reply) {
               // For now, let's reply with another automatic message
               //reply(sender, `We've received your message: ${message}.`);
               const greetings = firstEntityValue(entities, 'greetings');
-              console.log(">>>>>>>>>>>>>>greetings>>>>>>>>>>>>>"+greetings);
+              console.log(greetings);
               const celebrity = firstEntityValue(entities, 'notable_person');
-              console.log(">>>>>>>>>>>>>>celebrity>>>>>>>>>>>>>"+celebrity);
+              console.log(celebrity);
              if (celebrity) {
              // We can call wikidata API for more info here
              reply(sender, printWikidataDescription(celebrity));
