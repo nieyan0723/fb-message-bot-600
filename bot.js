@@ -48,6 +48,7 @@ const printWikidataDescription = (celebrity) => {
      // var respdata = "ooo yes I know " + celebrity.name + " -- " + data.entities[wikidataID].descriptions.en.value;
       //return respdata;
       const answer = data;
+      return answer;
     })
     .catch(err => console.error(err))
 };
