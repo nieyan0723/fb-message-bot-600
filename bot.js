@@ -28,7 +28,7 @@ var firstEntityValue = function (entities, entity) {
 return val;
 }
 
-const printWikidataDescription = (celebrity) => {
+const printWikidataDescription = (celebrity, sender, reply) => {
   var responsewiki;
   const wikidataID = celebrity.external && celebrity.external.wikidata;
   if (!wikidataID) {
@@ -101,7 +101,7 @@ var read = function (sender, message, reply) {
               console.log(celebrity);
              if (celebrity) {
              // We can call wikidata API for more info here
-              printWikidataDescription(celebrity)
+              printWikidataDescription(celebrity, sender, reply)
              } else if (greetings) {
              console.log("Hi! You can say something like 'Tell me about Beyonce'");
              reply(sender, "Hi! You can say something like 'Tell me about Beyonce'");
