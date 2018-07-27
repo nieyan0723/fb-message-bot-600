@@ -1,10 +1,68 @@
 'use strict'
 
+let Wit = null;
+let interactive = null;
+
 var Config = require('./config')
-var wit = require('./services/wit').getWit()
+  Wit = require('node-wit').Wit;
+  interactive = require('node-wit').interactive;
 
 // LETS SAVE USER SESSIONS
 var sessions = {}
+
+const accessToken = (() => {
+  return Config.WIT_TOKEN;
+})();
+
+var firstEntityValue = function (entities, entity) {
+	var val = entities && entities[entity] &&
+		Array.isArray(entities[entity]) &&
+		entities[entity].length > 0 &&
+		entities[entity][0].value
+
+	if (!val) {
+		return null
+	}
+	return typeof val === 'object' ? val.value : val
+}
+
+const handleMessage = ({entities}) => {
+  const greetings = firstEntityValue(entities, 'greetings');
+  const celebrity = firstEntityValue(entities, 'notable_person');
+  if (celebrity) {
+    // We can call wikidata API for more info here
+   return printWikidataDescription(celebrity);
+  } else if (greetings) {
+    console.log("Hi! You can say something like 'Tell me about Beyonce'");
+    return "Hi! You can say something like 'Tell me about Beyonce'";
+  } else {
+    console.log("Umm. I don't recognize that name. Which celebrity do you want to learn about?");
+    return "Umm. I don't recognize that name. Which celebrity do you want to learn about?";
+  }
+};
+
+const printWikidataDescription = (celebrity) => {
+  const wikidataID = celebrity.external && celebrity.external.wikidata;
+  if (!wikidataID) {
+    // in case wikidata id isn't available
+    console.log(`I recognize ${celebrity.name}!`);
+    return "I recognize ${celebrity.name}!";
+  }
+  const fullUrl = `https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&ids=${wikidataID}&props=descriptions&languages=en`;
+  return fetch(fullUrl, {
+    method: 'GET',
+    headers: new Headers({
+      'Api-User-Agent': 'wit-ai-example'
+    })
+  })
+    .then(response => Promise.resolve(response.json()))
+    .then(data => {
+      console.log(`ooo yes I know ${celebrity.name} -- ${data.entities[wikidataID].descriptions.en.value}`);
+      return "ooo yes I know ${celebrity.name} -- ${data.entities[wikidataID].descriptions.en.value}";
+    })
+    .catch(err => console.error(err))
+};
+
 
 var findOrCreateSession = function (fbid) {
   var sessionId
@@ -37,34 +95,11 @@ var read = function (sender, message, reply) {
 		message = 'Hello yourself! I am a chat bot. You can say "show me pics of corgis"'
 		reply(sender, message)
 	} else {
-		// Let's find the user
-		var sessionId = findOrCreateSession(sender)
-		// Let's forward the message to the Wit.ai bot engine
-		// This will run all actions until there are no more actions left to do
-		wit.runActions(
-			sessionId, // the user's current session by id
-			message,  // the user's message
-			sessions[sessionId].context, // the user's session state
-			function (error, context) { // callback
-			if (error) {
-				console.log('oops!', error)
-			} else {
-				// Wit.ai ran all the actions
-				// Now it needs more messages
-				console.log('Waiting for further messages')
-
-				// Based on the session state, you might want to reset the session
-				// Example:
-				// if (context['done']) {
-				// 	delete sessions[sessionId]
-				// }
-
-				// Updating the user's current session state
-				sessions[sessionId].context = context
-			}
-		})
+		replyMessage = handleMessage(message)
+		reply(sender, replyMessage)
 	}
 }
+
 
 
 
