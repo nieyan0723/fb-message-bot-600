@@ -29,11 +29,12 @@ return val;
 }
 
 const printWikidataDescription = (celebrity) => {
+  var responsewiki;
   const wikidataID = celebrity.external && celebrity.external.wikidata;
   if (!wikidataID) {
     // in case wikidata id isn't available
     console.log(`I recognize ${celebrity.name}!`);
-    return "I recognize ${celebrity.name}!";
+    responsewiki = "I recognize ${celebrity.name}!";
   }
   const fullUrl = `https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&ids=${wikidataID}&props=descriptions&languages=en`;
   return fetch(fullUrl, {
@@ -45,12 +46,12 @@ const printWikidataDescription = (celebrity) => {
     .then(response => Promise.resolve(response.json()))
     .then(data => {
       console.log(`ooo yes I know ${celebrity.name} -- ${data.entities[wikidataID].descriptions.en.value}`);
-      const respdata = "ooo yes I know " + celebrity.name + " -- " + data.entities[wikidataID].descriptions.en.value;
+      responsewiki = "ooo yes I know " + celebrity.name + " -- " + data.entities[wikidataID].descriptions.en.value;
       console.log(">>>>>>>>>>respdata>>>>>>>>");
-      console.log(respdata);
-      return respdata;
+      console.log(responsewiki);
     })
     .catch(err => console.error(err))
+    return responsewiki;
 };
 
 
@@ -96,7 +97,7 @@ var read = function (sender, message, reply) {
               console.log(celebrity);
              if (celebrity) {
              // We can call wikidata API for more info here
-             printWikidataDescription(celebrity);
+             var respdata = printWikidataDescription(celebrity);
              console.log(">>>>>>>resp>>>>>>>");
              console.log(respdata);
              reply(sender, respdata);
