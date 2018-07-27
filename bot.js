@@ -25,8 +25,7 @@ var firstEntityValue = function (entities, entity) {
 	if (!val) {
 		return null
 	}
-//return typeof val === 'object' ? val.value : val
-return val.value
+return typeof val === 'object' ? val.value : val
 }
 
 const printWikidataDescription = (celebrity) => {
@@ -91,7 +90,10 @@ var read = function (sender, message, reply) {
               console.log(celebrity);
              if (celebrity) {
              // We can call wikidata API for more info here
-             reply(sender, printWikidataDescription(celebrity));
+             var resp = printWikidataDescription(celebrity);
+            console.log(">>>>>>>resp>>>>>>>");
+             console.log(resp);
+             reply(sender, resp);
              } else if (greetings) {
              console.log("Hi! You can say something like 'Tell me about Beyonce'");
              reply(sender, "Hi! You can say something like 'Tell me about Beyonce'");
