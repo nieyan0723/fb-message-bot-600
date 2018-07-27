@@ -50,8 +50,8 @@ const printWikidataDescription = (celebrity) => {
       console.log(">>>>>>>>>>respdata>>>>>>>>");
       console.log(responsewiki);
     })
+    .then(funtion(responsewiki){return responsewiki;})
     .catch(err => console.error(err))
-    return responsewiki;
 };
 
 
@@ -98,7 +98,6 @@ var read = function (sender, message, reply) {
              if (celebrity) {
              // We can call wikidata API for more info here
              let respdata = printWikidataDescription(celebrity);
-             respdata.then(()=>{return responsewiki;});
              console.log(">>>>>>>resp>>>>>>>");
              console.log(respdata);
              reply(sender, respdata);
