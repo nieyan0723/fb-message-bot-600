@@ -97,7 +97,7 @@ var read = function (sender, message, reply) {
               // You can customize your response to these entities
               console.log(entities);
               // For now, let's reply with another automatic message
-              reply(sender, `We've received your message: ${text}.`);
+              reply(sender, `We've received your message: ${message}.`);
             })
 //		var replyMessage = handleMessage(message)
 //		reply(sender, replyMessage)
