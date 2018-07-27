@@ -45,7 +45,7 @@ const printWikidataDescription = (celebrity) => {
     .then(response => Promise.resolve(response.json()))
     .then(data => {
       console.log(`ooo yes I know ${celebrity.name} -- ${data.entities[wikidataID].descriptions.en.value}`);
-      return "ooo yes I know ${celebrity.name} -- ${data.entities[wikidataID].descriptions.en.value}";
+      return data = "ooo yes I know " + celebrity.name+" -- " + data.entities[wikidataID].descriptions.en.value;
     })
     .catch(err => console.error(err))
 };
@@ -86,8 +86,10 @@ var read = function (sender, message, reply) {
               // For now, let's reply with another automatic message
               //reply(sender, `We've received your message: ${message}.`);
               const greetings = firstEntityValue(entities, 'greetings');
+              console.log(">>>>>>>greetings>>>>>>>");
               console.log(greetings);
               const celebrity = firstEntityValue(entities, 'notable_person');
+              console.log(">>>>>>>celebrity>>>>>>>");
               console.log(celebrity);
              if (celebrity) {
              // We can call wikidata API for more info here
